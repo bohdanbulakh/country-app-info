@@ -20,7 +20,7 @@ model User {
   lastName      String?        @map("last_name")
   holidayEvents HolidayEvent[]
 
-  @@map("user")
+  @@map("users")
 }
 
 model HolidayEvent {
@@ -31,5 +31,5 @@ model HolidayEvent {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String   @map("user_id")
 
-  @@map("holiday_event")
+  @@map("holiday_events")
 }
