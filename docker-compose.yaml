@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres-country-app
+    restart: unless-stopped
+    volumes:
+      - ~/deployment/country-app/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "8080:5432"
+    env_file:
+      - ~/deployment/country-app/env/.postgres.dev.env
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower-country-app
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - "--cleanup"
+      - "-i"
+      - "60"
