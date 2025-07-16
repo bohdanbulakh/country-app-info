@@ -1,4 +1,4 @@
-#Country Info App
+# Country Info App
 Test task
 
 ## Installation
@@ -14,3 +14,4 @@ Test task
     ```shell
     docker compose up -d
     ```
+You can also test a deployed public version of this app [https://country-app.pp.ua](https://country-app.pp.ua)
