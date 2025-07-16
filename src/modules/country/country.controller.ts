@@ -6,7 +6,7 @@ export class CountryController {
   constructor (private readonly  countryService: CountryService) {}
 
   @Get()
-  getAll() {
+  getAll () {
     return this.countryService.getAll();
   }
 }
