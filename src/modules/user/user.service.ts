@@ -18,12 +18,38 @@ export class UserService {
 
   async createHolidays (userId: string, data: CreateHolidaysDto) {
     const allHolidays = await this.naggerApi.getHolidays(data.countryCode, data.year);
-    const filtered = this.filterHolidays(data.holidays, allHolidays);
-    return this.saveHolidays(userId, filtered);
+    const filtered = await this.filterHolidays(userId, data.holidays, allHolidays);
+    await this.saveHolidays(userId, filtered);
+    return this.prisma.holidayEvent.findMany({
+      where: {
+        name: {
+          in: filtered.map((x) => x.name),
+        },
+        countryCode: data.countryCode,
+        userId,
+      },
+    });
   }
 
-  private filterHolidays (requested: string[], existing: HolidaysResponse[]) {
-    return existing.filter((holiday) => requested.includes(holiday.name));
+  private async filterHolidays (userId: string, requested: string[], existing: HolidaysResponse[]) {
+    const toSave = existing.filter((holiday) => requested.includes(holiday.name));
+    const result: HolidaysResponse[] = [];
+
+    for (const holiday of toSave) {
+      const saved = await this.prisma.holidayEvent.findFirst({
+        where: {
+          userId,
+          name: holiday.name,
+          countryCode: holiday.countryCode,
+        },
+      });
+
+      if (!saved) {
+        result.push(holiday);
+      }
+    }
+
+    return result;
   }
 
   private saveHolidays (userId: string, holidays: HolidaysResponse[]) {
