@@ -1,5 +1,3 @@
-import { BaseResponse } from '../external-api/countriesnow/responses/base-response';
-
 export class FetchUtils {
   static addBody (value: object) {
     return {
@@ -10,7 +8,7 @@ export class FetchUtils {
     };
   }
 
-  static async toJSON<T extends BaseResponse> (response: Response, ...validationCallbacks: ((data: any) => void)[]) {
+  static async toJSON<T> (response: Response, ...validationCallbacks: ((data: any) => void)[]) {
     const parsed = (await response.json()) as T;
 
     for (const callback of validationCallbacks) {
