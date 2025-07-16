@@ -1,6 +1,18 @@
 version: '3'
 
 services:
+  country-app:
+    image: bohdanbulakh/country-app
+    container_name: country-app
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - watchtower
+    ports:
+      - "3003:3000"
+    env_file:
+      - ~/deployment/country-app/env/.country-app.dev.env
+
   postgres:
     image: postgres:16
     container_name: postgres-country-app
