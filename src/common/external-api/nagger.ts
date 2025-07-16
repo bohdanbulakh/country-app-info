@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CountryResponse } from './responses/country.response';
+import { ConfigurationService } from '../../config/configuration-service';
 
 @Injectable()
 export class NaggerApi {
   private readonly apiUrl: string;
-  constructor () {
-    const api_url = process.env.NAGGER_API_URL;
-    if (!api_url)  throw new Error('Cannot find Nagger API url');
-    this.apiUrl = api_url + '/api/v3/';
+  constructor (configService: ConfigurationService) {
+    this.apiUrl = configService.naggerUrl;
   }
 
   async getAllCountries () {
