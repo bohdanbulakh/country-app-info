@@ -31,5 +31,6 @@ model HolidayEvent {
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String   @map("user_id")
 
+  @@unique([countryCode, name, userId])
   @@map("holiday_events")
 }
