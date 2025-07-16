@@ -4,6 +4,9 @@ services:
   country-app:
     image: bohdanbulakh/country-app
     container_name: country-app
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
     restart: unless-stopped
     depends_on:
       - postgres
