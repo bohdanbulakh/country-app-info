@@ -1,6 +1,7 @@
 import { Body, Controller, Param, Post } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UserService } from './user.service';
+import { UserByIdPipe } from '../../common/pipes/user-by-id.pipe';
 
 @Controller('users')
 export class UserController {
@@ -8,7 +9,7 @@ export class UserController {
 
   @Post(':userId/calendar/holidays')
   createUserHolidays (
-    @Param('userId') userId: string,
+    @Param('userId', UserByIdPipe) userId: string,
   ) {}
 
   @Post()
