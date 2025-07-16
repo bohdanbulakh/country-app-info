@@ -58,6 +58,7 @@ export default tseslint.config(
       'eqeqeq': ['error', 'smart'],
       'unused-imports/no-unused-imports': 'error',
       'no-trailing-spaces': ['error', { skipBlankLines: false, }],
+      '@typescript-eslint/no-unsafe-call': 'off',
       'unused-imports/no-unused-vars': [
         'warn',
         {
